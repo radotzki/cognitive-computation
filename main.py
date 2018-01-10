@@ -2,8 +2,11 @@ import numpy as np
 import threading
 import random
 from tabulate import tabulate
+import drone_brain
+import json
 
-world_size = np.array([2 ** 3, 2 ** 3])
+
+world_size = np.array([2 ** 5, 2 ** 5])
 max_speed = 5
 fps = 1
 drone_location = np.array([world_size[0] / 2, world_size[1] / 2], int)
@@ -57,9 +60,9 @@ def check_boundries(loc):
     return loc
 
 
-def rnn(d_loc, t_loc):
-    # TODO: change with rnn
-    return random_move(d_loc)
+def rnn(brain, d_loc, t_loc):
+    drone_move = brain.get_move(d_loc[0], d_loc[1], t_loc[0], t_loc[1])
+    return [int(drone_move[0] * max_speed), int(drone_move[1] * max_speed)]
 
 
 def print_world():
@@ -70,18 +73,30 @@ def print_world():
     print('\n')
 
 
+def save_world():
+    data = {
+        'world': [int(world_size[0]), int(world_size[1])],
+        'drone': [int(drone_location[0]), int(drone_location[1])],
+        'target': [int(target_location[0]), int(target_location[1])]
+    }
+    with open('data.json', 'w') as outfile:
+        json.dump(data, outfile)
+
+
 def main():
     global target_location
     global drone_location
 
+    brain = drone_brain.drone_brain(drone_location[0], drone_location[1], target_location[0], target_location[1])
+
     target_speed_vector = zig_zag(target_location)
     target_location = check_boundries(target_location + target_speed_vector)
-    drone_speed_vector = rnn(drone_location, target_location)
+
+    drone_speed_vector = rnn(brain, drone_location, target_location)
     drone_location = check_boundries(drone_location + drone_speed_vector)
 
-    print_world()
+    save_world()
 
     threading.Timer(1.0 / fps, main).start()
-
 
 main()

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Drone Control</title>
+</head>
+
+<body>
+    <script>
+        const ws = new WebSocket("ws://127.0.0.1:5678/");
+
+        ws.onmessage = event => {
+            const data = JSON.parse(event.data);
+            console.log('event.data', data);
+        };
+
+    </script>
+</body>
+
+</html>
