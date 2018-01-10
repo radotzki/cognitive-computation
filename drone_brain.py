@@ -56,11 +56,12 @@ class neural_network:
             last_hidden_result = lambda_sigmoid(last_hidden_result)
         
         #final hidden layer to output layer
-        ouput_result = np.dot(last_hidden_result, self.layers[layer + 1]) # mat_mult dimensionality: hidden * [hidden * ouput] = ouput 
-        x_move, y_move = output_result
+        ouput_layer_result = np.dot(last_hidden_result, self.layers[layer + 1]) # mat_mult dimensionality: hidden * [hidden * ouput] = ouput 
+        final_result = np.tanh(ouput_layer_result, out=None)
+        x_move, y_move = final_result
         
-        self.update_weights(prev_drone_x, prev_drone_y, prev_obj_x, prev_obj_y,
-                            drone_x, drone_y, obj_x, obj_y, x_move, y_move)
+        #self.update_weights(prev_drone_x, prev_drone_y, prev_obj_x, prev_obj_y,
+        #                    drone_x, drone_y, obj_x, obj_y, x_move, y_move)
         return x_move, y_move
                            
     
@@ -68,7 +69,7 @@ class neural_network:
                        drone_x, drone_y, obj_x, obj_y, x_move, y_move):
         
         # Based on heuristic guess of a good move, imitating a reward function
-        x_error, y_error = self.calc_error(prev_obj_x, prev_obj_y, obj_x, obj_y, prev_drone_x, prev_done_y)
+        x_error, y_error = self.calc_error(prev_obj_x, prev_obj_y, obj_x, obj_y, prev_drone_x, prev_drone_y)
         
         #Calculate error t
         
