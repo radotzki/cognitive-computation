@@ -2,6 +2,7 @@ import numpy as np
 import math
 
 #Hyper Params
+alpha=0.01
 hidden_dim = 8
 input_dim = 8
 num_hidden_layers= 2
