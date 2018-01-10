@@ -7,7 +7,7 @@ hidden_dim = 8
 input_dim = 8
 num_hidden_layers= 2
 output_dim = 2
-SMALL_DISTRIBUTION = 0.01 # spread of gaussian for starting random values
+SMALL_DISTRIBUTION = 1 # spread of gaussian for starting random values
 
 def sigmoid(x):
     """
