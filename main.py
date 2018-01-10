@@ -4,11 +4,11 @@ import random
 from tabulate import tabulate
 import drone_brain
 import json
+import consts as consts
 
 
-world_size = np.array([2 ** 5, 2 ** 5])
+world_size = np.array([2 ** 6, 2 ** 6])
 max_speed = 5
-fps = 1
 drone_location = np.array([world_size[0] / 2, world_size[1] / 2], int)
 target_location = np.array([0, 0])
 
@@ -97,6 +97,6 @@ def main():
 
     save_world()
 
-    threading.Timer(1.0 / fps, main).start()
+    threading.Timer(1.0 / consts.fps, main).start()
 
 main()

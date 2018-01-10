@@ -89,7 +89,6 @@ class neural_network:
         for layer in reversed(range(len(self.layers))):
 
             cur_layer = self.layers[layer]
-            print(str(layer) + ' layer')
 
             if layer == len(self.layers)-1: #final layer
                 error = [x_error, y_error]

@@ -1,7 +1,6 @@
 import asyncio
-import datetime
-import random
 import websockets
+import consts as consts
 
 
 async def broadcast(websocket, path):
@@ -10,7 +9,7 @@ async def broadcast(websocket, path):
         data = data_file.read()
         data_file.close()
         await websocket.send(data)
-        await asyncio.sleep(1)
+        await asyncio.sleep(1.0 / consts.fps)
 
 start_server = websockets.serve(broadcast, '127.0.0.1', 5678)
 
