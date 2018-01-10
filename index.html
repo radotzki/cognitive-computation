@@ -3,18 +3,23 @@
 
 <head>
     <title>Drone Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+    <script src="script.js"></script>
+    <style>
+        .drone {
+            background-color: red;
+        }
+
+        .target {
+            background-color: blue;
+        }
+    </style>
 </head>
 
 <body>
-    <script>
-        const ws = new WebSocket("ws://127.0.0.1:5678/");
+    <table id="table" class="table is-bordered">
 
-        ws.onmessage = event => {
-            const data = JSON.parse(event.data);
-            console.log('event.data', data);
-        };
-
-    </script>
+    </table>
 </body>
 
 </html>
