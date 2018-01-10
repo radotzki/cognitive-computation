@@ -1,7 +1,6 @@
 import numpy as np
 import threading
 import random
-from tabulate import tabulate
 import drone_brain
 import json
 import consts as consts
@@ -63,14 +62,6 @@ def check_boundries(loc):
 def rnn(brain, d_loc, t_loc):
     drone_move = brain.get_move(d_loc[0], d_loc[1], t_loc[0], t_loc[1])
     return [int(drone_move[0] * max_speed), int(drone_move[1] * max_speed)]
-
-
-def print_world():
-    world = np.zeros(world_size)
-    world[target_location[0], target_location[1]] = 1
-    world[drone_location[0], drone_location[1]] = 2
-    print(tabulate(world))
-    print('\n')
 
 
 def save_world():
